@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Card</title>
+  <style>
+    .card {
+      width:100%;
+      height: 30%;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" onclick="openPlayer()">
+    <img src="https://iili.io/3aaPgyv.md.jpg" alt="Play">
+  </div>
+
+  <script>
+    function get6HourId() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      const date = now.getDate();
+      const hour = now.getHours();
+
+      const block = Math.floor(hour / 6); // 0–3 depending on hour
+
+      const idSource = `${year}-${month}-${date}-block${block}`;
+      const hash = btoa(idSource).replace(/=/g, '').slice(0, 12); // base64 short
+      return hash;
+    }
+
+    function openPlayer() {
+      const id = get6HourId();
+      window.location.href = `player.html?id=${id}`;
+    }
+  </script>
+
+</body>
+</html>
