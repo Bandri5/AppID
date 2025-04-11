@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Player</title>
+</head>
+<body>
+
+
+
+
+
+  <p id="show-id"></p>
+hello
+
+
+
+
+
+
+  <script>
+    function getValid6HourId() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth() + 1;
+      const date = now.getDate();
+      const hour = now.getHours();
+
+      const block = Math.floor(hour / 6); // 0-3 blocks
+
+      const idSource = `${year}-${month}-${date}-block${block}`;
+      const validId = btoa(idSource).replace(/=/g, '').slice(0, 12);
+      return validId;
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const urlId = params.get('id');
+    const currentValidId = getValid6HourId();
+
+    if (!urlId || urlId !== currentValidId) {
+      // Redirect to index.html if ID is missing or wrong
+      window.location.href = "index.html";
+    } else {
+      // Show ID if valid
+      document.getElementById("show-id").innerText = "Access Granted! ID: " + urlId;
+    }
+  </script>
+
+</body>
+</html>
